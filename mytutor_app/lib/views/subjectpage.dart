@@ -52,7 +52,7 @@ class _SubjectPageState extends State<SubjectPage> {
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green)),
+                          color: Colors.red)),
                 ),
                 const SizedBox(height: 15),
                 Expanded(
@@ -158,7 +158,7 @@ class _SubjectPageState extends State<SubjectPage> {
     curpage = pageno;
     numofpage ?? 1;
     http.post(
-        Uri.parse(CONSTANTS.server + "/mytutor_app/php/load_subj.php"),
+        Uri.parse(CONSTANTS.server + "/mytutor_app/php/load_subjects.php"),
         body: {'pageno': pageno.toString()}).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
