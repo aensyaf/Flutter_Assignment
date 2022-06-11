@@ -208,6 +208,8 @@ class _SignInScreenState extends State<SignInScreen> {
           body: {"email": _email, "password": _password}).then((response) {
         var data = jsonDecode(response.body);
         if (response.statusCode == 200 && data['status'] == 'success') {
+          // ignore: unused_local_variable
+          //Admin admin = Admin.fromJson(data['data']);
           // String name = data['data']['name'];
           // String email = data['data']['email'];
           // String id = data['data']['id'];

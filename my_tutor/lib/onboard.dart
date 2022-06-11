@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_tutor/content_model.dart';
-import 'package:my_tutor/signinscreen.dart';
-import 'package:my_tutor/signupscreen.dart';
+import 'package:my_tutor/loginscreen.dart';
+import 'package:my_tutor/registerscreen.dart';
 
 class OnBoardScreen extends StatefulWidget {
   const OnBoardScreen({Key? key}) : super(key: key);
