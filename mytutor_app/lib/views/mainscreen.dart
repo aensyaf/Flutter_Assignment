@@ -37,7 +37,6 @@ class _MainScreenState extends State<MainScreen> {
           padding: const EdgeInsets.all(32.0),
           child: tabchildren.elementAt(_currentIndex),
         ),
-
         
         bottomNavigationBar:
           Theme(
@@ -76,15 +75,14 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-
   
   void onTabTapped(int index) {
       setState(() {
         _currentIndex = index;
-        if(_currentIndex==1) {
+        if(_currentIndex==0) {
           maintitle = "Subjects";
         }
-        if(_currentIndex==0) {
+        if(_currentIndex==1) {
           maintitle = "Tutors";
         }
         if(_currentIndex==2) {
@@ -98,6 +96,5 @@ class _MainScreenState extends State<MainScreen> {
         }
       });
     }
-  
-  
+    
 }

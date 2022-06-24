@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:mytutor_app/views/registerscreen.dart';
-import 'package:mytutor_app/views/tutorpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import '../models/user.dart';
@@ -221,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (value) {
         await prefs.setString('email', email);
-        await prefs.setString('pass', password);
+        await prefs.setString('password', password);
         await prefs.setBool('remember', true);
         Fluttertoast.showToast(
             msg: "Preference Stored",
@@ -231,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
             fontSize: 14.0);
       } else {
         await prefs.setString('email', '');
-        await prefs.setString('pass', '');
+        await prefs.setString('password', '');
         await prefs.setBool('remember', false);
         _emailController.text = "";
         _passwordController.text = "";
@@ -267,7 +266,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> loadPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String email = (prefs.getString('email')) ?? '';
-    String password = (prefs.getString('pass')) ?? '';
+    String password = (prefs.getString('password')) ?? '';
     remember = (prefs.getBool('remember')) ?? false;
     if (remember) {
       setState(() {
@@ -301,7 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (content) => const TutorPage()));
+                  builder: (content) => const MainScreen()));
             } 
             else {
               Fluttertoast.showToast(

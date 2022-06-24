@@ -18,11 +18,12 @@ class _SubjectPageState extends State<SubjectPage> {
   late double screenHeight, screenWidth, resWidth;
   var numofpage, curpage = 1;
   var color;
-
+  TextEditingController searchController = TextEditingController();
+  String search = "";
   @override
   void initState() {
     super.initState();
-    _loadSubjects(1);
+    _loadSubjects(1, search);
   }
 
   @override
@@ -36,8 +37,23 @@ class _SubjectPageState extends State<SubjectPage> {
     }
     return Scaffold(
       appBar: AppBar(
+        title: const Text(
+          'SUBJECT',
+          style: TextStyle(
+            color: Colors.redAccent,
+            fontWeight: FontWeight.bold,
+            )
+        ),
         centerTitle: true,
-        title: const Text('MY Tutor', style: TextStyle(color: Colors.white)),
+        backgroundColor:Colors.black,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              _loadSearchDialog();
+            },
+          )
+        ],
       ),
       body: subjectList!.isEmpty
           ? Center(
@@ -47,27 +63,29 @@ class _SubjectPageState extends State<SubjectPage> {
           : Column(
               children: [
                 const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: Text("List of Subjects",
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  child: 
+                    Text("AVAILABLE SUBJECTS",
                       style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.red)),
+                      ),
+                    ),
                 ),
                 const SizedBox(height: 15),
                 Expanded(
                     child: GridView.count(
-                        crossAxisCount: 1,
-                        childAspectRatio: (1 / 1),
-                        children: List.generate(subjectList!.length, (index) {
-                          return Card(
-                              child: Column(
-                            children: [
+                      crossAxisCount: 1,
+                      childAspectRatio: (1 / 1.19),
+                      children: List.generate(subjectList!.length, (index) {
+                        return Card(
+                          child: Column(
+                          children: [
                               Flexible(
                                 flex: 6,
                                 child: CachedNetworkImage(
                                   imageUrl: CONSTANTS.server +
-                                      "/mytutor/mobile/assets/courses/" +
+                                      "/mytutor_app/assets/images/courses/" +
                                       subjectList![index].subjectId.toString() +
                                       '.jpg',
                                   fit: BoxFit.cover,
@@ -80,51 +98,55 @@ class _SubjectPageState extends State<SubjectPage> {
                               ),
                               const SizedBox(height: 20),
                               Flexible(
-                                  flex: 4,
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                            subjectList![index]
-                                                .subjectName
-                                                .toString(),
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                                fontSize: 19,
-                                                color: Colors.green)),
-                                        Text(
-                                            "RM " +
-                                                double.parse(subjectList![index]
-                                                        .subjectPrice
-                                                        .toString())
-                                                    .toStringAsFixed(2),
-                                            style: const TextStyle(
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.bold)),
-                                        Text(
-                                            subjectList![index]
-                                                    .subjectSessions
-                                                    .toString() +
-                                                " Sessions",
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.green)),
-                                        Text(
-                                            "Rating: " +
-                                                double.parse(subjectList![index]
-                                                        .subjectRating
-                                                        .toString())
-                                                    .toStringAsFixed(2) +
-                                                "/5",
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.green)),
-                                      ],
+                                flex: 4,
+                                child: Center(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      subjectList![index].subjectName.toString().toUpperCase(),
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black
+                                        )
                                     ),
-                                  ))
-                            ],
-                          ));
-                        }))),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      "PRICE: RM " + double.parse(
+                                      subjectList![index].subjectPrice.toString()).toStringAsFixed(2),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold
+                                      )
+                                    ),
+                                    
+                                    Text(
+                                      "SESSIONS: "+subjectList![index].subjectSessions.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black
+                                      )
+                                    ),
+                                    Text(
+                                      "RATING: " +double.parse(subjectList![index].subjectRating.toString()).toStringAsFixed(2) +"/5",
+                                      style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black
+                                      )
+                                    ),
+                                  ],
+                                ),
+                              )
+                            )
+                          ],
+                        ));
+                      }
+                    )
+                  )
+                ),
                 SizedBox(
                   height: 30,
                   child: ListView.builder(
@@ -133,14 +155,14 @@ class _SubjectPageState extends State<SubjectPage> {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       if ((curpage - 1) == index) {
-                        color = Colors.green;
+                        color = Colors.red;
                       } else {
                         color = Colors.black;
                       }
                       return SizedBox(
                         width: 40,
                         child: TextButton(
-                            onPressed: () => {_loadSubjects(index + 1)},
+                            onPressed: () => {_loadSubjects(index + 1, search)},
                             child: Text(
                               (index + 1).toString(),
                               style: TextStyle(color: color),
@@ -154,12 +176,15 @@ class _SubjectPageState extends State<SubjectPage> {
     );
   }
 
-  void _loadSubjects(int pageno) {
+  void _loadSubjects(int pageno, String _search) {
     curpage = pageno;
     numofpage ?? 1;
     http.post(
         Uri.parse(CONSTANTS.server + "/mytutor_app/php/load_subjects.php"),
-        body: {'pageno': pageno.toString()}).then((response) {
+        body: {
+          'pageno': pageno.toString(),
+          'search': _search,
+        }).then((response) {
       var jsondata = jsonDecode(response.body);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
         var extractdata = jsondata['data'];
@@ -176,5 +201,52 @@ class _SubjectPageState extends State<SubjectPage> {
         }
       }
     });
+  }
+
+  void _loadSearchDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            "SEARCH SUBJECT ",
+          ),
+          content: SizedBox(
+            height: screenHeight/6,
+            child: SingleChildScrollView(
+              child: Column(
+                  children: [
+                    TextField(
+                      controller: searchController,
+                      decoration: InputDecoration(
+                          labelText: 'Enter Subject Name',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0))),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        search = searchController.text;
+                        Navigator.of(context).pop();
+                        _loadSubjects(1, search);
+                      },
+                      child: const Text("Search"),
+                    )
+                  ],
+                ),
+            ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  "CANCEL",
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      );
   }
 }

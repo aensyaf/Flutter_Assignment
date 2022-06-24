@@ -395,7 +395,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     String name = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
-    String num = _numController.text;
+    String phoneno = _numController.text;
     String address = _addressController.text;
     String base64Image = base64Encode(_image!.readAsBytesSync());
     http.post(
@@ -403,7 +403,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         body: {
           "name": name,
           "email": email,
-          "num": num,
+          "phoneno": phoneno,
           "address": address,
           "password": password,
           "image": base64Image,
