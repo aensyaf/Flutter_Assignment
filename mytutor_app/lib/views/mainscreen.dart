@@ -5,8 +5,12 @@ import 'package:mytutor_app/views/profilepage.dart';
 import 'package:mytutor_app/views/subspage.dart';
 import 'package:mytutor_app/views/tutorpage.dart';
 
+import '../models/user.dart';
+
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  final User user;
+  const MainScreen({Key? key,
+    required this.user,}) : super(key: key);
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
@@ -19,8 +23,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    tabchildren = const [
-      SubjectPage(),
+    tabchildren =  [
+      SubjectPage(user: widget.user),
       TutorPage(),
       SubsPage(),
       FavPage(),

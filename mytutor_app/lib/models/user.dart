@@ -4,8 +4,9 @@ class User {
   String? email;
   String? phoneno;
   String? address;
+  String? cart;
 
-  User({this.id, this.name, this.email, this.phoneno, this.address});
+  User({this.id, this.name, this.email, this.phoneno, this.address, this.cart});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -13,6 +14,7 @@ class User {
     email = json['email'];
     phoneno = json['phoneno'];
     address = json['address'];
+    cart = json['cart'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +24,7 @@ class User {
     data['email'] = email;
     data['phoneno'] = phoneno;
     data['address'] = address;
+    data['cart'] = cart.toString();
     return data;
   }
 }

@@ -300,7 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (content) => const MainScreen()));
+                  builder: (content) => MainScreen(user: user)));
             } 
             else {
               Fluttertoast.showToast(
