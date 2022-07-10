@@ -48,12 +48,11 @@ class _SubjectPageState extends State<SubjectPage> {
         title: const Text(
           'SUBJECT',
           style: TextStyle(
-            color: Color.fromARGB(255,155,36,36),
             fontWeight: FontWeight.bold,
             )
         ),
         centerTitle: true,
-        backgroundColor:Colors.black,
+        backgroundColor:Color.fromARGB(255,155,36,36),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -131,7 +130,7 @@ class _SubjectPageState extends State<SubjectPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         subjectList![index].subjectName.toString().toUpperCase(),

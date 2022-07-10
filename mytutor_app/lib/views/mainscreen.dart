@@ -45,13 +45,13 @@ class _MainScreenState extends State<MainScreen> {
         bottomNavigationBar:
           Theme(
             data: ThemeData(
-            canvasColor: Colors.black,
+            canvasColor: const Color.fromARGB(255,155,36,36),
            ),
           child: BottomNavigationBar(
             onTap: onTabTapped,
             currentIndex: _currentIndex,
-            selectedItemColor: const Color.fromARGB(255,155,36,36),
-            unselectedItemColor: Colors.white,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.black,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.subject),

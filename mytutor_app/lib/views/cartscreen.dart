@@ -67,8 +67,8 @@ class _CartScreenState extends State<CartScreen> {
                   fontSize: 18, fontWeight: FontWeight.bold)),
                 Expanded(
                   child: GridView.count(
-                    crossAxisCount: 2,
-                    childAspectRatio: (1 / 1.3),
+                    crossAxisCount: 1,
+                    childAspectRatio: (1 / 0.8),
                     children: List.generate(cartList.length, (index) {
                       return InkWell(
                         child: Card(
@@ -87,39 +87,39 @@ class _CartScreenState extends State<CartScreen> {
                                     errorWidget: (context, url, error) => const Icon(Icons.error),
                                 ),
                               ),
-                              Text(
-                                cartList[index].subname.toString(),
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                              ),
+                              const SizedBox(height: 10),
                               Flexible(
-                                flex: 4,
-                                child: Column(
-                                  children: [
-                                    Column(
+                                  flex: 4,
+                                  child: Center(
+                                    child: Column(
                                       children: [
-                                        Text("RM " +
-                                          double.parse(cartList[index]
-                                            .subprice
-                                            .toString())
-                                            .toStringAsFixed(2) +
-                                            "/unit"),
                                         Text(
-                                          "RM " +
+                                          cartList[index].subname.toString(),
+                                          style: const TextStyle(
+                                            fontSize: 19,),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text( "RM " +
                                               double.parse(cartList[index]
                                                 .pricetotal
                                                 .toString())
                                                 .toStringAsFixed(2),
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
+                                            style: const TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold),
+                                            ),
+                                            IconButton(
+                                              onPressed: () {_deleteItem(index);},
+                                              icon: const Icon(Icons.delete)
+                                            )
+                                          ]
                                         ),
-                                      ]
+                                      ],
                                     ),
-                                  ]
-                                ),
-                              )
+                                  )
+                              ),
                             ],
                           )
                         )
@@ -136,12 +136,16 @@ class _CartScreenState extends State<CartScreen> {
                         Text(
                           "Total Payable: RM " + totalpayable.toStringAsFixed(2),
                           style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,)
                         ),
                         ElevatedButton(
                           onPressed: _onPaynowDialog,
-                          child: const Text("Pay Now")
-                        )
+                          child: const Text("Pay Fee", style: TextStyle(color:Colors.white)),
+                          style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255,155,36,36)
+                        ),
+                        ),
                       ],
                     ),
                   ),
